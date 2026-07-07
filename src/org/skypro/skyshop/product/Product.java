@@ -15,9 +15,7 @@ public abstract class Product {
     public abstract int getPrice();
 
     // Метод для проверки, является ли товар специальным
-    public boolean isSpecial() {
-        return false;
-    }
+    public abstract boolean isSpecial();
 
     // Стандартный формат вывода информации о товаре
     @Override

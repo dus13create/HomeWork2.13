@@ -11,12 +11,13 @@ public class App {
         // Товар с фиксированной ценой
         Product magazine = new FixPriceProduct("Журнал");
 
-        // Создание и наполнение корзины
+        // Создаем корзину и добавляем товары
         ProductBasket basket = new ProductBasket();
         basket.addProduct(apple);
         basket.addProduct(choco);
         basket.addProduct(magazine);
-        basket.printBasketContents(); // Демонстрация вывода
+        basket.printBasketContents(); // Демонстрация вывода корзины
     }
-}
+    }
+
 
