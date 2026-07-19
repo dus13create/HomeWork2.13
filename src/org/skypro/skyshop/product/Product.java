@@ -1,25 +1,45 @@
 package org.skypro.skyshop.product;
 
-public class Product {
-    private final String name; // Название продукта
-    private final int price; // Цена продукта
+import org.skypro.skyshop.search.Searchable;
 
-    // Конструктор класса Product
-    public Product(String name, int price) {
-        this.name = name; // Инициализируем поле name
-        this.price = price; // Инициализируем поле price
+public abstract class Product implements Searchable {
+    private final String name;
+
+    // Конструктор с проверкой названия
+    public Product(String name) {
+        // Проверка: название не должно быть null или "пустым" (включая пробелы)
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Название продукта не может быть пустым или состоять только из пробелов");
+        }
+        this.name = name;
     }
 
-    // Метод для получения названия продукта
+    // Геттер имени
     public String getName() {
-        return this.name; // Возвращаем название продукта
+        return name;
     }
 
-    // Метод для получения цены продукта
-    public int getPrice() {
+    // Абстрактный метод для получения цены товара
+    public abstract int getPrice();
 
-        return this.price; // Возвращаем цену продукта
-}
+    // Метод для проверки, является ли товар специальным
+    public abstract boolean isSpecial();
+
+    // Стандартный формат вывода информации о товаре
+    @Override
+    public String toString() {
+        return getName() + ": " + getPrice();
+    }
+
+    @Override
+    public String getSearchTerm() {
+        return name;
+    }
+
+    @Override
+    public String getContentType() {
+        return "PRODUCT";
+    }
 }
 
 
