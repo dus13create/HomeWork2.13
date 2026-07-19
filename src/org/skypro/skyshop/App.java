@@ -1,12 +1,30 @@
 package org.skypro.skyshop;
+
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.search.SearchEngine;
-import  javax.swing.*;
+
+import javax.swing.*;
 import java.awt.*;
+
 public class App {
-    public  static void main(String[] args) {
+    public static void main(String[] args) {
+        try {
+            Product wrongName = new SimpleProduct("   ", 100);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+        try {
+            Product zeroPrice = new SimpleProduct("Товар", 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+        try {
+            Product wrongDiscount = new DiscountedProduct("Товар", 100, 110);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
         // Создаем товары
         Product apple = new SimpleProduct("Яблоко", 50);
         Product choco = new DiscountedProduct("Шоколад", 200, 25);
@@ -35,6 +53,7 @@ public class App {
             if (s != null) System.out.println(s.getStringRepresentation());
         }
     }
-    }
+
+}
 
 

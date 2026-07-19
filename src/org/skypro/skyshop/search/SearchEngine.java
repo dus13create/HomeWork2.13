@@ -24,4 +24,29 @@ public class SearchEngine {
         }
         return result;
     }
+    // Метод поиска наиболее подходящего объекта по количеству совпадений
+    public Searchable findBest(String search) throws BestResultNotFound {
+        int maxCount = 0;
+        Searchable best = null;
+        for (int i = 0; i < count; i++) {
+            String term = items[i].getSearchTerm();
+            int occurrences = 0;
+            int idx = 0;
+            // Считаем количество вхождений
+            while ((idx = term.indexOf(search, idx)) != -1) {
+                occurrences++;
+                idx += search.length();
+            }
+            // Если у этого объекта больше вхождений — запоминаем
+            if (occurrences > maxCount) {
+                maxCount = occurrences;
+                best = items[i];
+            }
+        }
+        // Если лучший не найден — бросаем исключение
+        if (best == null) {
+            throw new BestResultNotFound(search);
+        }
+        return best;
+    }
 }
