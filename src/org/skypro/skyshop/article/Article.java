@@ -10,7 +10,7 @@ public class  Article implements Searchable {
         this.text = text;
     }
 
-           @Override
+    @Override
     public String getSearchTerm() {
         return title + " " + text;
     }
