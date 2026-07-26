@@ -4,6 +4,10 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.search.SearchEngine;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.List;
+import org.skypro.skyshop.search.Searchable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +39,7 @@ public class App {
         Article article2 = new Article("Шоколад и настроение", "Шоколад улучшает настроение.");
 
         // Создаем поисковую систему и добавляем товары и статьи
-        SearchEngine engine = new SearchEngine(10);
+        SearchEngine engine = new SearchEngine();
         engine.add(apple);
         engine.add(choco);
         engine.add(magazine);
@@ -44,13 +48,15 @@ public class App {
 
         // Поиск
         System.out.println("Поиск по слову 'Яблоко':");
-        for (var s : engine.search("Яблоко")) {
-            if (s != null) System.out.println(s.getStringRepresentation());
+        List<Searchable> searchResults = engine.search("Яблоко");
+        for (Searchable s : searchResults) {
+            System.out.println(s.getStringRepresentation());
         }
         System.out.println("---");
         System.out.println("Поиск по слову 'Шоколад':");
-        for (var s : engine.search("Шоколад")) {
-            if (s != null) System.out.println(s.getStringRepresentation());
+        List<Searchable> chocoResults = engine.search("Шоколад");
+        for (Searchable s : chocoResults) {
+            System.out.println(s.getStringRepresentation());
         }
     }
 
