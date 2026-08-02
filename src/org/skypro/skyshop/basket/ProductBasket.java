@@ -1,47 +1,41 @@
 package org.skypro.skyshop.basket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Iterator;
+import java.util.*;
 import org.skypro.skyshop.product.Product;
 
 public class ProductBasket {
-    private List<Product> products;
+    private Map> products;
 
     public ProductBasket() {
-        products = new ArrayList<>();
+        products = new HashMap<>();
     }
 
     public void addProduct(Product product) {
-        products.add(product);
+        products.computeIfAbsent(product.getName(), k -> new ArrayList<>()).add(product);
     }
 
     // Удаление всех продуктов с заданным именем. Возвращает список удалённых продуктов
-    public List<Product> removeProductsByName(String name) {
-        List<Product> removed = new ArrayList<>();
-        Iterator<Product> iterator = products.iterator();
-        while (iterator.hasNext()) {
-            Product p = iterator.next();
-            if (p.getName().equals(name)) {
-                removed.add(p);
-                iterator.remove();
-            }
-        }
-        return removed;
+    public List removeProductsByName(String name) {
+        List removed = products.remove(name);
+        return removed != null ? removed : new ArrayList<>();
     }
 
     public int getTotalCost() {
         int totalCost = 0;
-        for (Product product : products) {
-            totalCost += product.getPrice();
+        for (List productList : products.values()) {
+            for (Product product : productList) {
+                totalCost += product.getPrice();
+            }
         }
         return totalCost;
     }
 
     public int countSpecialProducts() {
         int count = 0;
-        for (Product product : products) {
-            if (product.isSpecial()) {
-                count++;
+        for (List productList : products.values()) {
+            for (Product product : productList) {
+                if (product.isSpecial()) {
+                    count++;
+                }
             }
         }
         return count;
@@ -52,8 +46,10 @@ public class ProductBasket {
             System.out.println("В корзине пусто");
             return;
         }
-        for (Product product : products) {
-            System.out.println(product);
+        for (List productList : products.values()) {
+            for (Product product : productList) {
+                System.out.println(product);
+            }
         }
         System.out.println("Итого: " + getTotalCost());
         System.out.println("Специальных товаров: " + countSpecialProducts());
