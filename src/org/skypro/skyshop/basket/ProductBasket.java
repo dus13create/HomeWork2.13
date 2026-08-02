@@ -3,7 +3,7 @@ import java.util.*;
 import org.skypro.skyshop.product.Product;
 
 public class ProductBasket {
-    private Map> products;
+    private Map<String, List<Product>> products;
 
     public ProductBasket() {
         products = new HashMap<>();
@@ -13,15 +13,13 @@ public class ProductBasket {
         products.computeIfAbsent(product.getName(), k -> new ArrayList<>()).add(product);
     }
 
-    // Удаление всех продуктов с заданным именем. Возвращает список удалённых продуктов
-    public List removeProductsByName(String name) {
-        List removed = products.remove(name);
+    public List<Product> removeProductsByName(String name) {
+        List<Product> removed = products.remove(name);
         return removed != null ? removed : new ArrayList<>();
     }
-
     public int getTotalCost() {
         int totalCost = 0;
-        for (List productList : products.values()) {
+        for (List<Product> productList : products.values()) {
             for (Product product : productList) {
                 totalCost += product.getPrice();
             }
@@ -31,7 +29,7 @@ public class ProductBasket {
 
     public int countSpecialProducts() {
         int count = 0;
-        for (List productList : products.values()) {
+        for (List<Product> productList : products.values()) {
             for (Product product : productList) {
                 if (product.isSpecial()) {
                     count++;
@@ -41,12 +39,16 @@ public class ProductBasket {
         return count;
     }
 
+
+
+
+
     public void printBasketContents() {
         if (products.isEmpty()) {
             System.out.println("В корзине пусто");
             return;
         }
-        for (List productList : products.values()) {
+        for (List<Product> productList : products.values()) {
             for (Product product : productList) {
                 System.out.println(product);
             }
