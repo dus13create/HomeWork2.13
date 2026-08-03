@@ -36,4 +36,8 @@ public class DiscountedProduct extends Product {
     public String toString() {
         return getName() + ": " + getPrice() + " (" + discountPercent + "%)";
     }
+    @Override
+    public boolean matches(String term) {
+        return getName().toLowerCase().contains(term.toLowerCase());
+    }
 }

@@ -40,6 +40,10 @@ public abstract class Product implements Searchable {
     public String getContentType() {
         return "PRODUCT";
     }
+    @Override
+    public boolean matches(String term) {
+        return getName().toLowerCase().contains(term.toLowerCase());
+    }
 }
 
 

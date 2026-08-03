@@ -25,5 +25,10 @@ public class Article implements Searchable {
     public String getName() {
         return title;
     }
+    @Override
+    public boolean matches(String term) {
+        return title.toLowerCase().contains(term.toLowerCase()) ||
+                text.toLowerCase().contains(term.toLowerCase());
+    }
 }
 

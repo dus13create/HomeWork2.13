@@ -8,6 +8,7 @@ import org.skypro.skyshop.search.SearchEngine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.List;
+import java.util.TreeMap;
 
 import org.skypro.skyshop.search.Searchable;
 
@@ -53,17 +54,11 @@ public class App {
                 engine.add(article2);
 
                 // Поиск
-                System.out.println("Поиск по слову 'Яблоко':");
-                List<Searchable> searchResults = engine.search("Яблоко");
-                for (Searchable s : searchResults) {
-                    System.out.println(s.getStringRepresentation());
-                }
-                System.out.println("---");
-                System.out.println("Поиск по слову 'Шоколад':");
-                List<Searchable> chocoResults = engine.search("Шоколад");
-                for (Searchable s : chocoResults) {
-                    System.out.println(s.getStringRepresentation());
-                }
+        System.out.println("Все товары в алфавитном порядке:");
+        TreeMap<String, Searchable> allProducts = engine.search(""); // пустой термин подойдёт для всех, если matches реализован правильно
+        for (Searchable s : allProducts.values()) {
+            System.out.println(s.getStringRepresentation());
+        }
                 // Сценарий №1: удаляем существующий продукт
                 System.out.println("Удаляем 'Яблоко':");
                 List<Product> removed = basket.removeProductsByName("Яблоко");

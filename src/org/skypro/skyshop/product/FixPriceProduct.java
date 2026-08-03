@@ -24,4 +24,8 @@ public class FixPriceProduct extends Product {
     public String toString() {
         return getName() + ": Фиксированная цена " + FIXED_PRICE;
     }
+    @Override
+    public boolean matches(String term) {
+        return getName().toLowerCase().contains(term.toLowerCase());
+    }
 }

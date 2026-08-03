@@ -19,4 +19,8 @@ public class SimpleProduct extends Product {
     public boolean isSpecial() {
         return false;
     }
+    @Override
+    public boolean matches(String term) {
+        return getName().toLowerCase().contains(term.toLowerCase());
+    }
 }
